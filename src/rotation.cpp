@@ -38,13 +38,14 @@ There is a lot of aliasing in the output. Bilinear filtering should be applied a
     int y0 = height/2;
     int new_x, new_y;
     float cos_tmp, sin_tmp;
+    angleDegree = 360 -  angleDegree;
     cos_tmp = cos(angleDegree *PI/180 );
     sin_tmp = sin(angleDegree*PI/180);
 
     memset(dataout, 0, width*height);
     
-    for (auto x=0; x< width;x++){
-        for (auto y=0; y<height;y++){
+    for (int x=0; x< width;x++){
+        for (int y=0; y<height;y++){
 
             new_x = ((x-x0) * cos_tmp) - ((y-y0) * sin_tmp) + x0;
             new_y = ((x-x0) * sin_tmp) + ((y-y0) * cos_tmp) + y0;
@@ -52,7 +53,7 @@ There is a lot of aliasing in the output. Bilinear filtering should be applied a
             //printf(" new_y = %d \n",  new_y);
             if ((new_x < width) && (new_y < height) 
                 && (new_y > 0) && (new_x > 0))
-                dataout[new_x  +stride*new_y] = datain[x+stride*y];
+                dataout[x+stride*y] = datain[new_x+stride*new_y];
             
         }
     }
@@ -74,7 +75,7 @@ There is still a lot of aliasing in the output. Bilinear filtering should be app
 
     memset(dataout, 0, width*height);
     
-    for (auto y=0; y<height;y++){
+    for (int y=0; y<height;y++){
 
             new_x_1 = ((0-x0) * cos_tmp ) - ((y-y0) * sin_tmp) + x0;
             new_y_1 = ((0-x0) * sin_tmp) + ((y-y0) * cos_tmp) + y0;

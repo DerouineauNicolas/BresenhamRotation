@@ -1,6 +1,8 @@
 #ifndef ROTATION_H
 #define ROTATION_H   
 
+#include <stdint.h>
+#include <stdlib.h>
 #include <math.h>
 #include <string.h> 
 #include <vector>
